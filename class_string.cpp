@@ -13,7 +13,7 @@ public:
 	virtual char * get_s() const = 0;
 	virtual ~String() {}
 };
-//деструктор могу не объявлять
+
 class String_str: public String
 {
 	char *s;
@@ -66,6 +66,7 @@ public:
 		return (strcmp(a.s,b.s)==0);
 	}
 	
+	//истина, если память не выделенна или нулевая строка
 	bool empty () const
 	{
 		if (s == 0)
@@ -96,6 +97,7 @@ public:
 			throw "class String_str: const operator[]-incorrect string index";
 		return s[i];		
 	}
+	//добавить символ с в конец строки
 	void addchar(char c)
 	{
 		char *p = new char[(size=size+1)+1];
@@ -107,6 +109,7 @@ public:
 		strcpy(s,p);
 		delete []p;	
 	}
+	//повтор строки
 	void repeat()
 	{
 		*this = operator +(*this, *this);
@@ -195,7 +198,7 @@ public:
 		unsigned long num2 = b.getnum();//------
 		return num1 == num2;
 	}
-	
+	//истина, если не выделенна память, пустая строка или строка, содержащая символ 0
 	bool empty () const
 	{
 		if (s == 0 )
@@ -227,10 +230,9 @@ public:
 			throw "class String_num: const operator[] -incorrect string index";
 		return s[i];		
 	}
-	
+	//сложить с символом с(как числа)
 	void addchar(char c)
 	{
-		;
 		unsigned long num = this->getnum();
 		if(!isdigit(c))
 			throw "class String_num: addchar function - char is not digit";
@@ -241,6 +243,7 @@ public:
 		s = new char[(size)+ 1];
 		sprintf(s,"%lu",num);
 	}	
+	//возвести в степень
 	void repeat()
 	{
 		unsigned long num = this->getnum();
